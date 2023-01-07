@@ -1,42 +1,39 @@
 const palindromes = function (string) {
-	let stringForwads = '';
-	let stringBackwards = '';
+	let stringForwards = getForwards(string);
+	let stringBackwards = getBackwards(string);
 
-	for (let i = string.length - 1; i >= 0; i--) {
-		stringBackwards = (string.charAt(i) !== '' && 
-			string.charAt(i).toLowerCase() !== string.charAt(i).toUpperCase()) ? 
-			stringBackwards += string.charAt(i).toLowerCase() : stringBackwards;
-
-		// stringForwards = removeNonLetters(string.charAt(i));
-	}
-
-	for (let i = 0; i <= string.length - 1; i++) {
-		stringForwads = (string.charAt(i) !== '' && 
-			string.charAt(i).toLowerCase() !== string.charAt(i).toUpperCase()) ?
-			stringForwads += string.charAt(i).toLowerCase() :
-			stringForwads;	
-	}
-
-	// console.log(stringForwads);
-	// console.log(stringBackwards);
-	
-	let result = (stringForwads === stringBackwards) ? true : false;
+	let result = (stringForwards === stringBackwards) ? true : false;
 	return result;
-
-
 };
 
-// function removeNonLetters(character) {
-// 	if (character !== '' && character.toLowerCase() !== character.toUpperCase) {
-// 		return character;
-// 	}
-// }
 
-// console.log(removeNonLetters(''))
+function filterLetters(character) {
+	let resultChar = (character.toLowerCase() !== character.toUpperCase()) ? 
+		character.toLowerCase() : '';
+	return resultChar;
+}
 
-// palindromes('Ab');
 
-// console.log(palindromes('Rats live on no evil star.'));
+function getForwards(string) {
+	let stringForwards = ''; 
+
+	for (let i = 0; i <= string.length - 1; i++) {
+		stringForwards += filterLetters(string.charAt(i));
+	}
+	return stringForwards;
+}
+
+
+function getBackwards (string) {
+	let stringBackwards = ''; 
+
+	for (let i = string.length - 1; i >= 0; i--) {
+		stringBackwards += filterLetters(string.charAt(i));
+	}
+	return stringBackwards;
+}
+
+
 
 // Do not edit below this line
 module.exports = palindromes;
